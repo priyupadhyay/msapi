@@ -215,9 +215,32 @@ if($data = mysqli_fetch_assoc($result)){
 echo json_encode($response);
 
 }
+
+/***********************************************************/
+/********************* Add Subject *********************/
+/***********************************************************/
+
 function addsubject(){
 $response = array("error" => FALSE);
+
+include 'dbconnect.php';
+
+$subject_name = $_POST['subject_name'];
+$response = array("error" => FALSE);
+$sql = "INSERT INTO subjects (subject)
+		VALUES ('$subject_name')";
+
+if (mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "Subject added successfully!";
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Subject could not be added!";
+}
+
 echo json_encode($response);
+
+
 
 }
 
