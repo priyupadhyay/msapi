@@ -23,30 +23,11 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			viewtopic();
 			break;
-		case 'countquestion':
+		case 'countdata':
 
-			countquestion();
+			countdata();
 			break;
-		case 'countchapter':
-
-			countchapter();
-			break;
-		case 'countsubject':
-
-			countsubject();
-			break;
-		case 'counttopic':
-
-			counttopic();
-			break;
-		case 'countqp':
-
-			countqp();
-			break;
-		case 'countuser':
-
-			countuser();
-			break;
+		
 
 		
 		default:
@@ -198,21 +179,33 @@ echo json_encode($response);
 }
 
 /***********************************************************/
-/********************* Count Question *********************/
+/********************* Count data *********************/
 /***********************************************************/
 
-function countquestion(){
+function countdata(){
 
 include 'dbconnect.php';
 
 
 $response = array("error" => FALSE);
-$sql = "SELECT COUNT(*) as res FROM chapters";
+$sql = "SELECT
+  (SELECT COUNT(*) FROM questions)  as question_count, 
+  (SELECT COUNT(*) FROM chapters) as chapter_count,
+  (SELECT COUNT(*) FROM subject) as subject_count,
+  (SELECT COUNT(*) FROM topics) as topic_count,
+  (SELECT COUNT(*) FROM quest_paper) as questionpaper_count,
+  (SELECT COUNT(*) FROM chapters) as chapter_count,
+  (SELECT COUNT(*) FROM users) as user_count";
 $result = mysqli_query($conn, $sql);
 $i=0;
 if($data = mysqli_fetch_assoc($result)){
 	$response["error"] = FALSE;
-	$response["data"]["questions_count"] = $data["res"];
+	$response["data"]["questions_count"] = $data["question_count"];
+	$response["data"]["chapters_count"] = $data["question_count"];
+	$response["data"]["subjects_count"] = $data["subject_count"];
+	$response["data"]["topics_count"] = $data["topic_count"];
+	$response["data"]["questionpaper_count"] = $data["questionpaper_count"];
+	$response["data"]["users_count"] = $data["user_count"];
 }
 
 echo json_encode($response);
