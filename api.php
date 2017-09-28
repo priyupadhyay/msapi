@@ -31,6 +31,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			addsubject();
 			break;
+		case 'addchapter':
+
+			addchapter();
+			break;
 		
 
 		
@@ -225,14 +229,14 @@ $response = array("error" => FALSE);
 
 include 'dbconnect.php';
 
-$subject_name = $_POST['subject_name'];
+$subject_name = $_POST["subject_name"];
 $response = array("error" => FALSE);
 $sql = "INSERT INTO subjects (subject)
 		VALUES ('$subject_name')";
 
 if (mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
-	$response["msg"] = $subject_name." Subject added successfully!";
+	$response["msg"] = "Subject added successfully!";
 } else {
     $response["error"] = TRUE;
     $response["error_msg"] = "Subject could not be added!";
@@ -244,6 +248,35 @@ echo json_encode($response);
 
 }
 
+/***********************************************************/
+/********************* Add Chapter *********************/
+/***********************************************************/
+
+function addchapter(){
+$response = array("error" => FALSE);
+
+include 'dbconnect.php';
+
+$chapter_name = $_POST["chapter_name"];
+$subject = $_POST["subject"];
+$class = $_POST["class"];
+$response = array("error" => FALSE);
+$sql = "INSERT INTO chapters (chap,class,subject)
+		VALUES ('$chapter_name', '$class', '$subject')";
+
+if (mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "Chapter added successfully!";
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Chapter could not be added!";
+}
+
+echo json_encode($response);
+
+
+
+}
 
 ?>
 
