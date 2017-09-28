@@ -232,7 +232,7 @@ $sql = "INSERT INTO subjects (subject)
 
 if (mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
-	$response["msg"] = "Subject added successfully!";
+	$response["msg"] = $subject_name." Subject added successfully!";
 } else {
     $response["error"] = TRUE;
     $response["error_msg"] = "Subject could not be added!";
