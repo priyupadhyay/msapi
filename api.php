@@ -27,6 +27,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			countdata();
 			break;
+		case 'addsubject':
+
+			addsubject();
+			break;
 		
 
 		
