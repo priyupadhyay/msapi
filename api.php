@@ -23,6 +23,31 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			viewtopic();
 			break;
+		case 'countquestion':
+
+			countquestion();
+			break;
+		case 'countchapter':
+
+			countchapter();
+			break;
+		case 'countsubject':
+
+			countsubject();
+			break;
+		case 'counttopic':
+
+			counttopic();
+			break;
+		case 'countqp':
+
+			countqp();
+			break;
+		case 'countuser':
+
+			countuser();
+			break;
+
 		
 		default:
 		$response = array("error" => TRUE);
@@ -173,8 +198,26 @@ echo json_encode($response);
 }
 
 /***********************************************************/
-/********************* Functions Start *********************/
+/********************* Count Question *********************/
 /***********************************************************/
+
+function countquestion(){
+
+include 'dbconnect.php';
+
+
+$response = array("error" => FALSE);
+$sql = "SELECT COUNT(*) as res FROM chapters";
+$result = mysqli_query($conn, $sql);
+$i=0;
+if($data = mysqli_fetch_assoc($result)){
+	$response["error"] = FALSE;
+	$response["data"]["questions_count"] = $data["res"];
+}
+
+echo json_encode($response);
+
+}
 
 ?>
 
