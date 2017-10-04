@@ -35,6 +35,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			addchapter();
 			break;
+		case 'getchapters':
+
+			getchapters();
+			break;
 		
 
 		
