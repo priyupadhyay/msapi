@@ -35,6 +35,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			addchapter();
 			break;
+		case 'addtopic':
+
+			addtopic();
+			break;
 		case 'getchapters':
 
 			getchapters();
@@ -308,13 +312,14 @@ $subject = $_POST["subject"];
 $class = $_POST["class"];
 $response = array("error" => FALSE);
 
-$sql = "SELECT chap FROM chapters where `subject` = '$subject' AND `class` = '$class'";
+$sql = "SELECT id, chap FROM chapters where `subject` = '$subject' AND `class` = '$class'";
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$i=0;
 
 while($data = mysqli_fetch_assoc($result)){
 	$response["error"] = FALSE;
+	$response[["data"][$i]["id"] = $data["id"] ;
 	$response["data"][$i]["chapter"] = $data["chap"];
 	
 	
@@ -329,6 +334,42 @@ $response["data"]["size"] = $i;
 }
 
 
+}
+echo json_encode($response);
+
+
+
+}
+
+
+
+/***********************************************************/
+/********************* Add Topics *********************/
+/***********************************************************/
+
+function addtopic(){
+$response = array("error" => FALSE);
+if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Insert data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$ch_id = $_POST["ch_id"];
+$topic = $_POST["topic"];
+
+$response = array("error" => FALSE);
+$sql = "INSERT INTO topics (ch_id,name)
+		VALUES ('$ch_id', '$topic')";
+
+if (mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "topic added successfully!";
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Topic could not be added!";
+}
 }
 echo json_encode($response);
 
