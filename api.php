@@ -286,5 +286,52 @@ echo json_encode($response);
 
 }
 
+/***********************************************************/
+/********************* Get Chapters *********************/
+/***********************************************************/
+
+function getchapters(){
+$response = array("error" => FALSE);
+if(!isset($_POST["subject"]) || empty($_POST["subject"]) || !isset($_POST["class"]) || empty($_POST["class"])){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$chapter_name = $_POST["chapter_name"];
+$subject = $_POST["subject"];
+$class = $_POST["class"];
+$response = array("error" => FALSE);
+
+$sql = "SELECT chap FROM chapters where `subject` = '$subject' AND `class` = '$class'";
+if ($result = mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$i=0;
+
+while($data = mysqli_fetch_assoc($result)){
+	$response["error"] = FALSE;
+	$response["data"][$i]["id"] = $data["id"];
+	$response["data"][$i]["chapter"] = $data["chap"];
+	
+	
+	$i++;
+
+}
+$response["data"]["size"] = $i;
+
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "No Chapters Found!";
+}
+
+
+}
+echo json_encode($response);
+
+
+
+}
+
 ?>
 
