@@ -226,7 +226,11 @@ echo json_encode($response);
 
 function addsubject(){
 $response = array("error" => FALSE);
-
+if(!isset($_POST["subject_name"]) || empty($_POST["subject_name"])){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Insert data Missing!";
+}
+else{
 include 'dbconnect.php';
 
 $subject_name = $_POST["subject_name"];
@@ -241,7 +245,7 @@ if (mysqli_query($conn, $sql)) {
     $response["error"] = TRUE;
     $response["error_msg"] = "Subject could not be added!";
 }
-
+}
 echo json_encode($response);
 
 
@@ -254,7 +258,11 @@ echo json_encode($response);
 
 function addchapter(){
 $response = array("error" => FALSE);
-
+if(!isset($_POST["chapter_name"]) || empty($_POST["chapter_name"]) || !isset($_POST["subject"]) || empty($_POST["subject"]) || !isset($_POST["class"]) || empty($_POST["class"])){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Insert data Missing!";
+}
+else{
 include 'dbconnect.php';
 
 $chapter_name = $_POST["chapter_name"];
@@ -271,7 +279,7 @@ if (mysqli_query($conn, $sql)) {
     $response["error"] = TRUE;
     $response["error_msg"] = "Chapter could not be added!";
 }
-
+}
 echo json_encode($response);
 
 
