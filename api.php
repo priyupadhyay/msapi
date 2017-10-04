@@ -315,7 +315,6 @@ if ($result = mysqli_query($conn, $sql)) {
 
 while($data = mysqli_fetch_assoc($result)){
 	$response["error"] = FALSE;
-	$response["data"][$i]["id"] = $data["id"];
 	$response["data"][$i]["chapter"] = $data["chap"];
 	
 	
