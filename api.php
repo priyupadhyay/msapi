@@ -43,6 +43,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			getchapters();
 			break;
+		case 'deletequestion':
+
+			deletequestion();
+			break;
 		
 
 		
@@ -369,6 +373,40 @@ $response["data"]["size"] = $i;
 } else {
     $response["error"] = TRUE;
     $response["error_msg"] = "No Chapters Found!";
+}
+
+}
+echo json_encode($response);
+
+}
+
+
+/***********************************************************/
+/********************* Delete Questions *********************/
+/***********************************************************/
+
+function deletequestion(){
+$response = array("error" => FALSE);
+if(!isset($_POST["qid"]) || empty($_POST["qid"])){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$qid = $_POST["qid"];
+
+$response = array("error" => FALSE);
+
+$sql = "UPDATE `questions` SET `status` = 0 WHERE `id` = $qid";
+if ($result = mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "Question Deleted!";
+
+
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Could not be deleted!";
 }
 
 }
