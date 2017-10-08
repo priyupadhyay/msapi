@@ -91,7 +91,7 @@ while($data = mysqli_fetch_assoc($result)){
 	$response["data"][$i]["marks"] = $data["marks"];
 	$response["data"][$i]["ques_txt"] = $data["ques_txt"];
 	$response["data"][$i]["ques_img"] = $data["ques_img"];
-	//Options Remaining
+	$response["data"][$i]["qr"] = $data["qr"];
 	$response["data"][$i]["answer"] = $data["answer"];
 	$response["data"][$i]["youtube"] = $data["youtube"];
 	$i++;
