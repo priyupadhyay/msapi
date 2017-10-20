@@ -79,7 +79,7 @@ include 'dbconnect.php';
 
 
 $response = array("error" => FALSE);
-$sql = "SELECT * FROM questions";
+$sql = "SELECT * FROM questions WHERE `status`= 1 ";
 $result = mysqli_query($conn, $sql);
 $i=0;
 
@@ -413,6 +413,40 @@ if ($result = mysqli_query($conn, $sql)) {
 echo json_encode($response);
 
 }
+
+/***********************************************************/
+/********************* Add Questions *********************/
+/***********************************************************/
+
+function addquestions() {
+$response = array("error" => FALSE);
+if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Insert data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$ch_id = $_POST["ch_id"];
+$topic = $_POST["topic"];
+
+$response = array("error" => FALSE);
+$sql = "INSERT INTO topics (ch_id,name)
+		VALUES ('$ch_id', '$topic')";
+
+if (mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "Questions added successfully!";
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Question could not be added!";
+}
+}
+echo json_encode($response);
+
+}
+
+
 
 
 ?>
