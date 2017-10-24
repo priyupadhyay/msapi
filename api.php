@@ -436,7 +436,7 @@ $qid = $_POST["qid"];
 
 $response = array("error" => FALSE);
 
-$sql = "DELETE FROM `subject` WHERE `id` = $qid";
+$sql = "DELETE FROM `subjects` WHERE `id` = $qid";
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$response["msg"] = "Subject Deleted!";
