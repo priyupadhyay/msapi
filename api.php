@@ -47,6 +47,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			deletequestion();
 			break;
+		case 'deletesubject':
+
+			deletesubject();
+			break;
 		
 
 		
@@ -402,6 +406,40 @@ $sql = "UPDATE `questions` SET `status` = 0 WHERE `id` = $qid";
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$response["msg"] = "Question Deleted!";
+
+
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "Could not be deleted!";
+}
+
+}
+echo json_encode($response);
+
+}
+
+
+/***********************************************************/
+/********************* Delete Subjects *********************/
+/***********************************************************/
+
+function deletesubject(){
+$response = array("error" => FALSE);
+if(!isset($_POST["qid"]) || empty($_POST["qid"])){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$qid = $_POST["qid"];
+
+$response = array("error" => FALSE);
+
+$sql = "DELETE FROM `subject` WHERE `id` = $qid";
+if ($result = mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$response["msg"] = "Subject Deleted!";
 
 
 } else {
