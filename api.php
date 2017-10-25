@@ -406,7 +406,7 @@ $chapter_id = $_POST["ch_id"];
 $response = array("error" => FALSE);
 
 $sql = "SELECT * FROM topics where ch_id = $chapter_id";
-if ($result = mysqli_query($conn, $sql) && count(mysqli_fetch_assoc($result)) != 0) {
+if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$i=0;
 
