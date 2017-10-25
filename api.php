@@ -43,6 +43,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			getchapters();
 			break;
+		case 'gettopics':
+
+			gettopics();
+			break;
 		case 'deletequestion':
 
 			deletequestion();
@@ -51,6 +55,7 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			deletesubject();
 			break;
+
 		
 
 		
@@ -384,6 +389,48 @@ echo json_encode($response);
 
 }
 
+/***********************************************************/
+/********************* Get Topics *********************/
+/***********************************************************/
+
+function gettopics(){
+$response = array("error" => FALSE);
+if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) ){
+$response["error"] = TRUE;
+    $response["error_msg"] = "Data Missing!";
+}
+else{
+include 'dbconnect.php';
+
+$chapter_id = $_POST["ch_id"];
+$response = array("error" => FALSE);
+
+$sql = "SELECT * FROM topics where ch_id = $chapter_id";
+if ($result = mysqli_query($conn, $sql)) {
+	$response["error"] = FALSE;
+	$i=0;
+
+while($data = mysqli_fetch_assoc($result)){
+	$response["error"] = FALSE;
+	
+	$response["data"][$i]["id"] = $data["id"];
+	$response["data"][$i]["topic"] = $data["name"];
+	
+	
+	$i++;
+
+}
+$response["data"]["size"] = $i;
+
+} else {
+    $response["error"] = TRUE;
+    $response["error_msg"] = "No Topics Found!";
+}
+
+}
+echo json_encode($response);
+
+}
 
 /***********************************************************/
 /********************* Delete Questions *********************/
