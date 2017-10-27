@@ -370,14 +370,14 @@ if ($result = mysqli_query($conn, $sql)) {
 while($data = mysqli_fetch_assoc($result)){
 	$response["error"] = FALSE;
 	
-	$response["data"][$i]["id"] = $data["id"];
-	$response["data"][$i]["chapter"] = $data["chap"];
+	$response["data"] = array("id" => $data["id"]);
+	$response["data"] = array("chapter" => $data["chap"]);
 	
 	
 	$i++;
 
 }
-$response["data"]["size"] = $i;
+$response["size"] = $i;
 
 } else {
     $response["error"] = TRUE;
