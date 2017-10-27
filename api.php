@@ -412,18 +412,17 @@ $sql = "SELECT * FROM topics where ch_id = $chapter_id";
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$i=0;
-
+	$response["data"]  = array();
 while($data = mysqli_fetch_assoc($result)){
-	$response["error"] = FALSE;
+ $response["data"][] = array("id" => $data["id"], "topic" => $data["name"]);
 	
-	$response["data"][$i]["id"] = $data["id"];
-	$response["data"][$i]["topic"] = $data["name"];
+
 	
 	
 	$i++;
 
 }
-$response["data"]["size"] = $i;
+$response["size"] = $i;
 
 } else {
     $response["error"] = TRUE;
@@ -434,6 +433,7 @@ $response["data"]["size"] = $i;
 echo json_encode($response);
 
 }
+
 
 /***********************************************************/
 /********************* Delete Questions *********************/
