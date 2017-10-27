@@ -366,11 +366,15 @@ $sql = "SELECT id, chap FROM chapters where `subject` = '$subject' AND `class` =
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$i=0;
-
-while($data = mysqli_fetch_assoc($result)){
+if(mysqli_fetch_assoc($result)){
 	$response["error"] = FALSE;
 	
-	$response["data"] = array("id" => $data["id"], "chapter" => $data["chap"]);
+	$response["data"]  array();
+}
+while($data = mysqli_fetch_assoc($result)){
+	
+	
+	 array_push($response["data"], "id" => $data["id"], "chapter" => $data["chap"]);
 	//$response["data"] = array("chapter" => $data["chap"]);
 	
 	
