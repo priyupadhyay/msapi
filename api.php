@@ -369,10 +369,11 @@ if ($result = mysqli_query($conn, $sql)) {
 
 	$response["data"]  = array();
 
+
 while($data = mysqli_fetch_assoc($result)){
 	
 	
-	 array_push($response["data"], "id" => $data["id"], "chapter" => $data["chap"]);
+	 array_push($response["data"], array("id" => $data["id"], "chapter" => $data["chap"]);
 	//$response["data"] = array("chapter" => $data["chap"]);
 	
 	
