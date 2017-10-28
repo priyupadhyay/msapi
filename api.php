@@ -55,7 +55,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 			deletesubject();
 			break;
+		case 'addquestions':
 
+			addquestions();
+			break;
 		
 
 		
@@ -508,11 +511,11 @@ echo json_encode($response);
 
 function addquestions() {
 $response = array("error" => FALSE);
-if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
-$response["error"] = TRUE;
-    $response["error_msg"] = "Insert data Missing!";
-}
-else{
+// if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
+// $response["error"] = TRUE;
+//     $response["error_msg"] = "Insert data Missing!";
+// }
+// else{
 include 'dbconnect.php';
 
 $ch_id = $_POST["ch_id"];
@@ -529,7 +532,7 @@ if (mysqli_query($conn, $sql)) {
     $response["error"] = TRUE;
     $response["error_msg"] = "Question could not be added!";
 }
-}
+//}
 echo json_encode($response);
 
 }
