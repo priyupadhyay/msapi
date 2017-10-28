@@ -415,17 +415,18 @@ $sql = "SELECT * FROM topics where ch_id = $chapter_id";
 if ($result = mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
 	$i=0;
-	$response["data"]  = array();
-while($data = mysqli_fetch_assoc($result)){
- $response["data"][] = array("id" => $data["id"], "topic" => $data["name"]);
-	
 
+while($data = mysqli_fetch_assoc($result)){
+	$response["error"] = FALSE;
+	
+	$response["data"][$i]["id"] = $data["id"];
+	$response["data"][$i]["topic"] = $data["name"];
 	
 	
 	$i++;
 
 }
-$response["size"] = $i;
+$response["data"]["size"] = $i;
 
 } else {
     $response["error"] = TRUE;
@@ -436,7 +437,6 @@ $response["size"] = $i;
 echo json_encode($response);
 
 }
-
 
 /***********************************************************/
 /********************* Delete Questions *********************/
@@ -518,12 +518,11 @@ $response = array("error" => FALSE);
 // else{
 include 'dbconnect.php';
 
-$ch_id = $_POST["ch_id"];
 $topic = $_POST["topic"];
 
 $response = array("error" => FALSE);
-$sql = "INSERT INTO topics (ch_id,name)
-		VALUES ('$ch_id', '$topic')";
+$sql = "INSERT INTO `questions` (`class`, `type`, `subject`, `chapter`, `level`, `topic`, `marks`, `ques_txt`, `ques_img`, `option1`, `option2`, `option3`, `option4`, `option5`, `answer`, `date`, `by`, `last_used`,`youtube`)
+ VALUES ('', NULL, NULL, NULL, NULL, NULL, '0', '', NULL, 'null', 'null', 'null', 'null', 'null', 'null', NULL, NULL, NULL, NULL);";
 
 if (mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
