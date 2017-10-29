@@ -20,7 +20,8 @@ else {
 
 }
 
-if(getchaptersbyid("1")){
+if(getchaptersbyid("1") !="error"){
 	echo "hello";
 }
+else echo "chutiya";
 ?>
