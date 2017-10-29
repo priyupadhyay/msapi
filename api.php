@@ -59,6 +59,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		deletetopic();
 		break;
+		case 'deletechapter':
+
+		deletechapter();
+		break;
 		case 'addquestions':
 
 		addquestions();
@@ -516,21 +520,21 @@ function deletesubject(){
 
 function deletetopic(){
 	$response = array("error" => FALSE);
-	if(!isset($_POST["qid"]) || empty($_POST["qid"])){
+	if(!isset($_POST["topicid"]) || empty($_POST["topicid"])){
 		$response["error"] = TRUE;
 		$response["error_msg"] = "Data Missing!";
 	}
 	else{
 		include 'dbconnect.php';
 
-		$qid = $_POST["qid"];
+		$topicid = $_POST["topicid"];
 
 		$response = array("error" => FALSE);
 
-		$sql = "DELETE FROM `subjects` WHERE `id` = $qid";
+		$sql = "DELETE FROM `topics` WHERE `id` = $topicid";
 		if ($result = mysqli_query($conn, $sql)) {
 			$response["error"] = FALSE;
-			$response["msg"] = "Subject Deleted!";
+			$response["msg"] = "Topic Deleted!";
 
 
 		} else {
@@ -542,6 +546,40 @@ function deletetopic(){
 	echo json_encode($response);
 
 }
+
+/***********************************************************/
+/********************* Delete Chapter*********************/
+/***********************************************************/
+
+function deletechapter(){
+	$response = array("error" => FALSE);
+	if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"])){
+		$response["error"] = TRUE;
+		$response["error_msg"] = "Data Missing!";
+	}
+	else{
+		include 'dbconnect.php';
+
+		$ch_ = $_POST["topicid"];
+
+		$response = array("error" => FALSE);
+
+		$sql = "DELETE FROM `chapters` WHERE `id` = $ch_id";
+		if ($result = mysqli_query($conn, $sql)) {
+			$response["error"] = FALSE;
+			$response["msg"] = "Topic Deleted!";
+
+
+		} else {
+			$response["error"] = TRUE;
+			$response["error_msg"] = "Could not be deleted!";
+		}
+
+	}
+	echo json_encode($response);
+
+}
+
 /***********************************************************/
 /********************* Add Questions *********************/
 /***********************************************************/
