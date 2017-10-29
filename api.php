@@ -650,7 +650,7 @@ else{
 	$sql = "DELETE FROM `chapters` WHERE `id` = $ch_id";
 	if ($result = mysqli_query($conn, $sql)) {
 		$response["error"] = FALSE;
-		$response["msg"] = "Topic Deleted!";
+		$response["msg"] = "Chapter Deleted!";
 
 
 	} else {
