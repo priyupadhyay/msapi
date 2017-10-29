@@ -643,7 +643,7 @@ if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"])){
 else{
 	include 'dbconnect.php';
 
-	$ch_id= $_POST["topicid"];
+	$ch_id= $_POST["ch_id"];
 
 	$response = array("error" => FALSE);
 
