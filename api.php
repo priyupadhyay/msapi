@@ -60,6 +60,10 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		addquestions();
 		break;
+		case 'deletetopic':
+
+		deletetopic();
+		break;
 		
 
 		
@@ -589,7 +593,38 @@ function getchaptersbyid($ch_id){
 }
 
 
+/***********************************************************/
+/********************* Delete Topic *********************/
+/***********************************************************/
 
+function deletetopic(){
+	$response = array("error" => FALSE);
+	if(!isset($_POST["topicid"]) || empty($_POST["topicid"])){
+		$response["error"] = TRUE;
+		$response["error_msg"] = "Data Missing!";
+	}
+	else{
+		include 'dbconnect.php';
+
+		$topicid = $_POST["topicid"];
+
+		$response = array("error" => FALSE);
+
+		$sql = "DELETE FROM `topics` WHERE `id` = $topicid";
+		if ($result = mysqli_query($conn, $sql)) {
+			$response["error"] = FALSE;
+			$response["msg"] = "Topic Deleted!";
+
+
+		} else {
+			$response["error"] = TRUE;
+			$response["error_msg"] = "Could not be deleted!";
+		}
+
+	}
+	echo json_encode($response);
+
+}
 
 
 ?>
