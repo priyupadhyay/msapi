@@ -1,4 +1,4 @@
-<?
+<?php
 
 function getchaptersbyid($ch_id){
 $response = array("error" => FALSE);
