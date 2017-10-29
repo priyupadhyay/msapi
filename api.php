@@ -55,14 +55,7 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		deletesubject();
 		break;
-		case 'deletetopic':
-
-		deletetopic();
-		break;
-		case 'deletechapter':
-
-		deletechapter();
-		break;
+		
 		case 'addquestions':
 
 		addquestions();
