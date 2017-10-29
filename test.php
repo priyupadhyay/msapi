@@ -9,7 +9,7 @@ else{
 include 'dbconnect.php';
 $sql = "SELECT * FROM chapters where id = $ch_id";
 if ($result = mysqli_query($conn, $sql)) {
-	$data = mysqli_fetch_assoc($result)
+	$data = mysqli_fetch_assoc($result);
 	return $data['chap'];
 
 } 
