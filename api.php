@@ -55,7 +55,6 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		deletesubject();
 		break;
-		
 		case 'addquestions':
 
 		addquestions();
@@ -140,7 +139,7 @@ function viewsubject(){
 		$response["data"][$i]["name"] = $data["subject"];
 		$response["data"][$i]["chapter_count"] = $data["chapno"];
 		$response["data"][$i]["question_count"] = $data["qno"];
-
+		
 		$i++;
 
 	}
@@ -171,7 +170,7 @@ function viewchapter(){
 		$response["data"][$i]["subject"] = $data["subject"];
 		$response["data"][$i]["class"] = $data["class"];
 		$response["data"][$i]["topic_count"] = $data["topicno"];
-
+		
 		$i++;
 
 	}
@@ -200,8 +199,8 @@ function viewtopic(){
 		$response["data"][$i]["id"] = $data["id"];
 		$response["data"][$i]["name"] = $data["name"];
 		$response["data"][$i]["chapter"] = $data["chap"];
-
-
+		
+		
 		$i++;
 
 	}
@@ -376,12 +375,12 @@ function getchapters(){
 
 
 			while($data = mysqli_fetch_assoc($result)){
-
-
+				
+				
 				$response["data"][] = array("id" => $data["id"], "chapter" => $data["chap"]);
 	//$response["data"] = array("chapter" => $data["chap"]);
-
-
+				
+				
 				$i++;
 
 			}
@@ -420,11 +419,11 @@ function gettopics(){
 
 			while($data = mysqli_fetch_assoc($result)){
 				$response["error"] = FALSE;
-
+				
 				$response["data"][$i]["id"] = $data["id"];
 				$response["data"][$i]["topic"] = $data["name"];
-
-
+				
+				
 				$i++;
 
 			}
@@ -506,7 +505,6 @@ function deletesubject(){
 	echo json_encode($response);
 
 }
-
 
 /***********************************************************/
 /********************* Add Questions *********************/
