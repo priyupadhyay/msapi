@@ -1,8 +1,8 @@
 <?php
 
 function getchaptersbyid($ch_id){
-$response = array("error" => FALSE);
-if($ch_id != ""){
+
+if($ch_id == ""){
 return "error";
 }
 else{
@@ -15,7 +15,8 @@ if ($result = mysqli_query($conn, $sql)) {
 } 
 else {
     return "error";
-}}
+}
+}
 
 
 }
