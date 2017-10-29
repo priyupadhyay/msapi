@@ -518,11 +518,32 @@ $response = array("error" => FALSE);
 // else{
 include 'dbconnect.php';
 
-$topic = $_POST["topic"];
+$question = $_POST['question'];
+$answer = $_POST['answer'];
+$group = $_POST['group'];
+$mcq1 = $_POST['mcq1'];
+$mcq2 = $_POST['mcq1'];
+$mcq3 = $_POST['mcq3'];
+$mcq4 = $_POST['mcq4'];
+$class = $_POST['class'];
+$subject = $_POST['subject'];
+$type = $_POST['type'];
+$tag = $_POST['tag'];
+$chapter = $_POST['chapter'];
+$topic  = $_POST['topic'];
+$level = $_POST['level'];
+$marks = $_POST['marks'];
+$link = $_POST['link'];
+$file = $_POST['file'];
+
+
+
+
+
 
 $response = array("error" => FALSE);
-$sql = "INSERT INTO `questions` (`class`, `type`, `subject`, `chapter`, `level`, `topic`, `marks`, `ques_txt`, `ques_img`, `option1`, `option2`, `option3`, `option4`, `option5`, `answer`, `date`, `by`, `last_used`,`youtube`)
- VALUES ('', NULL, NULL, NULL, NULL, NULL, '0', '', NULL, 'null', 'null', 'null', 'null', 'null', 'null', NULL, NULL, NULL, NULL);";
+$sql = "INSERT INTO `questions` (`class`, `type`, `subject`, `chapter`, `level`, `topic`, `marks`, `ques_txt`, `ques_img`, `option1`, `option2`, `option3`, `option4`, `option5`, `answer`, `date`, `by`, `youtube`)
+ VALUES ('$class', '$type', '$subject', '$chapter', '$level', '$topic', $marks, '$question', '$file', '$mcq1', '$mcq2', '$mcq3', '$mcq4', 'null', '$answer', NOW(), 'admin', '$link');";
 
 if (mysqli_query($conn, $sql)) {
 	$response["error"] = FALSE;
