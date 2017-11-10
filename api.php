@@ -55,7 +55,7 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		deletesubject();
 		break;
-		
+
 		case 'addquestions':
 
 		addquestions();
@@ -68,17 +68,17 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		deletechapter();
 		break;
-		
-		case 'getchaptersbyid':
-		getchaptersbyid();
+
+		case 'getchapterbyid':
+		getchapterbyid();
 		break;
 
 		case 'editchapters':
 		editchapters();
 		break;
-		
 
-		
+
+
 		default:
 		$response = array("error" => TRUE);
 		$response["error_msg"] = "Function name not defined.";
@@ -556,7 +556,7 @@ function addquestions() {
 	$file = $_POST['file'];
 
 
-	$chapter = getchaptersbyid($chapter);
+	$chapter = getchaptersbyidlocal($chapter);
 
 
 
@@ -579,12 +579,36 @@ function addquestions() {
 
 
 /***********************************************************/
-/********************* Get Chapters By Id *********************/
+/********************* Get Chapters By Id local*********************/
 /***********************************************************/
 
 
-function getchaptersbyid($ch_id){
+function getchaptersbyidlocal($ch_id){
 
+	if($ch_id == ""){
+		return "error";
+	}
+	else{
+		include 'dbconnect.php';
+		$sql = "SELECT * FROM chapters where id = $ch_id";
+		if ($result = mysqli_query($conn, $sql)) {
+			$data = mysqli_fetch_assoc($result);
+			return $data['chap'];
+
+		} 
+		else {
+			return "error";
+		}
+	}
+
+
+}
+
+/***********************************************************/
+/********************* Get Chapters By Id *********************/
+/***********************************************************/
+function getchapterbyid(){
+$ch_id = $_POST['ch_id'];
 	if($ch_id == ""){
 		return "error";
 	}
