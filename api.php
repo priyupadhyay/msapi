@@ -610,19 +610,29 @@ function getchaptersbyidlocal($ch_id){
 function getchapterbyid(){
 $ch_id = $_POST['ch_id'];
 	if($ch_id == ""){
-		return "error";
+		$response = array("error" => TRUE);
+		$response['error_msg'] = "some error"; 
 	}
 	else{
 		include 'dbconnect.php';
 		$sql = "SELECT * FROM chapters where id = $ch_id";
 		if ($result = mysqli_query($conn, $sql)) {
 			$data = mysqli_fetch_assoc($result);
-			return $data['chap'];
+			$response = array("error" => FALSE);
+			
+			$response["data"]  = array();
+			$response["data"][] = array("id" => $data["id"], "chapter" => $data["chap"], "subject" => $data["subject"], "class" => $data["class"]);
+
+
+
+			
 
 		} 
 		else {
-			return "error";
+			$response = array("error" => TRUE);
+		$response['error_msg'] = "some error"; 
 		}
+		echo json_encode($response);
 	}
 
 
