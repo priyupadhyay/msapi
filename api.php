@@ -806,10 +806,10 @@ else{
 
 	if (mysqli_query($conn, $sql)) {
 		$response["error"] = FALSE;
-		$response["msg"] = "Chapter updated successfully!";
+		$response["msg"] = "topic updated successfully!";
 	} else {
 		$response["error"] = TRUE;
-		$response["error_msg"] = "Chapter could not be updated!";
+		$response["error_msg"] = "topic could not be updated!";
 	}
 }
 echo json_encode($response);
