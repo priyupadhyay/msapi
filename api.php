@@ -77,7 +77,13 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		editchapter();
 		break;
 
+		case 'gettopicbyid':
+		gettopicbyid();
+		break;
 
+		case 'edittopic':
+			edittopic();
+			break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -724,9 +730,9 @@ else{
 	$ch_id = $_POST["ch_id"];
 	$response = array("error" => FALSE);
 	$sql = "UPDATE chapters SET chap ='$chapter_name',
-			class='$class',
-			subject='$subject'
-			 WHERE id = $ch_id";
+	class='$class',
+	subject='$subject'
+	WHERE id = $ch_id";
 
 	if (mysqli_query($conn, $sql)) {
 		$response["error"] = FALSE;
@@ -739,8 +745,77 @@ else{
 echo json_encode($response);
 
 
+}
+
+/***********************************************************/
+/********************* Get Topic By Id *********************/
+/***********************************************************/
+function gettopicbyid(){
+
+	if(!isset($_POST['topic_id']) || empty($_POST['topic_id'])){
+		$topic_id = $_POST['topic_id'];
+		$response = array("error" => TRUE);
+		$response['error_msg'] = "id not set"; 
+	}
+	else{
+		include 'dbconnect.php';
+		$sql = "SELECT * FROM topics where id = $topic_id";
+		if ($result = mysqli_query($conn, $sql)) {
+			$data = mysqli_fetch_assoc($result);
+			$response = array("error" => FALSE);
+			
+			$response["data"]  = array();
+			$response["data"][] = array("id" => $data["id"], "topic" => $data["name"], "ch_id" => $data["ch_id"]);
+
+
+
+			
+
+		} 
+		else {
+			$response = array("error" => TRUE);
+		$response['error_msg'] = "some error"; 
+		}
+		echo json_encode($response);
+	}
+
 
 }
+
+/***********************************************************/
+/********************* Edit Topic By Id *********************/
+/***********************************************************/
+function edittopic(){
+$response = array("error" => FALSE);
+	if(!isset($_POST["topic_name"]) || empty($_POST["topic_name"]) || !isset($_POST["topic_id"]) || empty($_POST["topic_id"]) || !isset($_POST["ch_id"]) || empty($_POST["ch_id"])){
+		$response["error"] = TRUE;
+	$response["error_msg"] = "Insert data Missing!";
+}
+else{
+	include 'dbconnect.php';
+
+	
+	$ch_id = $_POST["ch_id"];
+	$topic_name = $_POST['topic_name'];
+	$topic_id = $_POST['topic_id'];
+	$response = array("error" => FALSE);
+	$sql = "UPDATE topics SET name ='$topic_name',
+			ch_id = $ch_id
+			WHERE id = $topic_id";
+
+	if (mysqli_query($conn, $sql)) {
+		$response["error"] = FALSE;
+		$response["msg"] = "Chapter updated successfully!";
+	} else {
+		$response["error"] = TRUE;
+		$response["error_msg"] = "Chapter could not be updated!";
+	}
+}
+echo json_encode($response);
+
+
+}
+
 
 ?>
 
