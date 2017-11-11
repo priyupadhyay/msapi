@@ -774,7 +774,7 @@ function gettopicbyid(){
 		} 
 		else {
 			$response = array("error" => TRUE);
-		$response['error_msg'] = "some error"; 
+		$response['error_msg'] = "query failed ".$sql; 
 		}
 		echo json_encode($response);
 	}
