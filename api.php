@@ -723,7 +723,10 @@ else{
 	$class = $_POST["class"];
 	$ch_id = $_POST["ch_id"];
 	$response = array("error" => FALSE);
-	$sql = "UPDATE chapters SET chap = $chapter_name,class=$class ,subject=$subject WHERE ch_id = $ch_id";
+	$sql = "UPDATE chapters SET chap ='$chapter_name',
+			class='$class',
+			subject='$subject'
+			 WHERE ch_id = $ch_id";
 
 	if (mysqli_query($conn, $sql)) {
 		$response["error"] = FALSE;
