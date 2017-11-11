@@ -73,8 +73,8 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		getchapterbyid();
 		break;
 
-		case 'editchapters':
-		editchapters();
+		case 'editchapter':
+		editchapter();
 		break;
 
 
