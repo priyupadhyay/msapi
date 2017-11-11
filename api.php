@@ -752,7 +752,7 @@ echo json_encode($response);
 /***********************************************************/
 function gettopicbyid(){
 
-	if(!isset($_POST['topic_id']) || empty($_POST['topic_id'])){
+	if(isset($_POST['topic_id']) || !empty($_POST['topic_id'])){
 		$topic_id = $_POST['topic_id'];
 		$response = array("error" => TRUE);
 		$response['error_msg'] = "id not set"; 
