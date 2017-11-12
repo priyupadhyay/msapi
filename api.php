@@ -84,6 +84,9 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		case 'edittopic':
 			edittopic();
 			break;
+		case 'getquestionbyid':
+			getquestionbyid();
+			break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -816,7 +819,46 @@ echo json_encode($response);
 
 
 }
-	
+
+
+/***********************************************************/
+/********************** View Question By Id *********************/
+/***********************************************************/
+
+function getquestionbyid(){
+
+	include 'dbconnect.php';
+
+	$id = $_POST['qid'];
+
+	$response = array("error" => FALSE);
+	$sql = "SELECT * FROM questions WHERE `status`= 1 AND id = $id";
+	$result = mysqli_query($conn, $sql);
+	$i=0;
+
+	$data = mysqli_fetch_assoc($result);
+		$response["error"] = FALSE;
+		$response["data"]  = array();
+		$response["data"][] = array("id" => $data["id"], 
+									"topic" => $data["name"], 
+									"id" => $data["id"],
+									"class" => $data["class"],
+									"type" => $data["type"],
+									"subject" => $data["subject"],
+									"chapter" => $data["chapter"],
+									"level" => $data["level"],
+									"topic" => $data["topic"],
+									"marks" => $data["marks"],
+									"ques_txt" => $data["ques_txt"],
+									"ques_img" => $data["ques_img"],
+									"qr" => $data["qr"],
+									"answer" => $data["answer"],
+									"youtube" => $data["youtube"]);
+
+
+	echo json_encode($response);
+
+}	
 
 ?>
 
