@@ -353,7 +353,7 @@ function addtopic() {
 
 		$response = array("error" => FALSE);
 		$sql = "INSERT INTO topics (ch_id,name)
-		VALUES ($ch_id, '$topic')";
+		VALUES ('$ch_id', '$topic')";
 
 		if (mysqli_query($conn, $sql)) {
 			$response["error"] = FALSE;
