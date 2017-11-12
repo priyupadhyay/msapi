@@ -353,7 +353,7 @@ function addtopic() {
 
 		$response = array("error" => FALSE);
 		$sql = "INSERT INTO topics (ch_id,name)
-		VALUES ('$ch_id', '$topic')";
+		VALUES ($ch_id, '$topic')";
 
 		if (mysqli_query($conn, $sql)) {
 			$response["error"] = FALSE;
@@ -817,6 +817,95 @@ echo json_encode($response);
 
 }
 
+/***********************************************************/
+/********************* Edit Questions *********************/
+/***********************************************************/
+
+function addquestions() {
+	$response = array("error" => FALSE);
+// if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
+// $response["error"] = TRUE;
+//     $response["error_msg"] = "Insert data Missing!";
+// }
+// else{
+	include 'dbconnect.php';
+
+	$question = $_POST['question'];
+	$answer = $_POST['answer'];
+	$group = $_POST['group'];
+	$mcq1 = $_POST['mcq1'];
+	$mcq2 = $_POST['mcq1'];
+	$mcq3 = $_POST['mcq3'];
+	$mcq4 = $_POST['mcq4'];
+	$class = $_POST['class'];
+	$subject = $_POST['subject'];
+	$type = $_POST['type'];
+	$tag = $_POST['tag'];
+	$chapter = $_POST['chapter'];
+	$topic  = $_POST['topic'];
+	$level = $_POST['level'];
+	$marks = $_POST['marks'];
+	$link = $_POST['link'];
+	$file = $_POST['file'];
+
+
+	$chapter = getchaptersbyidlocal($chapter);
+
+
+
+	$response = array("error" => FALSE);
+	$sql = "INSERT INTO `questions` SET `class`='$class', `type`='$type', `subject`='$subject', `chapter`='$chapter', `level`='$level', `topic`='$topic',`marks`= $marks, `ques_txt`='$question', `ques_img`='$file', `option1`='$mcq1', `option2`='$mcq2', `option3`='$mcq3', `option4`='$mcq4', `option5`='null', `answer`='$answer', `date`=NOW(), `by`='admin', `youtube`='$link';";
+
+	if (mysqli_query($conn, $sql)) {
+		$response["error"] = FALSE;
+		$response["msg"] = "Questions updated successfully!";
+	} else {
+		$response["error"] = TRUE;
+		$response["error_msg"] = "Question Not Updated!";
+	}
+//}
+	echo json_encode($response);
+
+}
+
+/***********************************************************/
+/********************** View Question By Id *********************/
+/***********************************************************/
+
+function getquestionbyid(){
+
+	include 'dbconnect.php';
+
+	$id = $_POST['qid'];
+
+	$response = array("error" => FALSE);
+	$sql = "SELECT * FROM questions WHERE `status`= 1 AND id = $id";
+	$result = mysqli_query($conn, $sql);
+	$i=0;
+
+	$data = mysqli_fetch_assoc($result);
+		$response["error"] = FALSE;
+		$response["data"]  = array();
+		$response["data"][] = array("id" => $data["id"], 
+									"topic" => $data["name"], 
+									"id" => $data["id"],
+									"class" => $data["class"],
+									"type" => $data["type"],
+									"subject" => $data["subject"],
+									"chapter" => $data["chapter"],
+									"level" => $data["level"],
+									"topic" => $data["topic"],
+									"marks" => $data["marks"],
+									"ques_txt" => $data["ques_txt"],
+									"ques_img" => $data["ques_img"],
+									"qr" => $data["qr"],
+									"answer" => $data["answer"],
+									"youtube" => $data["youtube"]);
+
+
+	echo json_encode($response);
+
+}	
 
 ?>
 
