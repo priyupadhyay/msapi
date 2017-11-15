@@ -916,7 +916,7 @@ function sendcartdata(){
 }
 else{
 
-	$qpname = $_POST['qpame'];
+	$qpname = $_POST['qpname'];
 	$qpclass = $_POST['qpclass'];
 	$qpsubject = $_POST['qpsubject'];
 	$qptime = $_POST['qptime'];
@@ -925,7 +925,7 @@ else{
 	$response['questions_added'] = count($qlist);
 
 	$sql = "INSERT INTO quest_list (qname,qclass,qsubject,qtime,qdate,qmarks)
-		VALUES ('$qpname', '$qpclass', '$qpsubject','qptime',NOW(),0)";
+		VALUES ('$qpname', '$qpclass', '$qpsubject','$qptime',NOW(),0)";
 		mysqli_query($conn, $sql);
 
 		$qpid = mysqli_insert_id($conn);
