@@ -929,7 +929,6 @@ else{
 		mysqli_query($conn, $sql);
 
 		$qpid = mysqli_insert_id($conn);
-		$response['sql2'][] = array();
 		$marks=0;
 	foreach ($qlist as $key => $value) {
 		$qdetails = getquestionbyidlocal($value);
@@ -954,7 +953,7 @@ else{
 					mysqli_query($conn, $sql2);
 					
 }
-	$sql3 = "UPDATE quest_list SET marks=$marks WHERE qid = $qpid";
+	$sql3 = "UPDATE quest_list SET qmarks=$marks WHERE qid = $qpid";
 $response['question_paper_id'] = $qpid;
 $response['marks'] = $marks;
 
