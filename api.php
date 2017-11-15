@@ -949,7 +949,7 @@ else{
 		}
 
 		$sql2 = "INSERT INTO quest_paper (quesid,quesa,quesb,quesc,qpid)
-					VALUES($qid,$seca,$scb,$secc,$qpid)";
+					VALUES($qid,$seca,$secb,$secc,$qpid)";
 					mysqli_query($conn, $sql2);
 					$response['sql2'][$i] = $sql2;
 					$i++;
