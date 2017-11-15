@@ -82,11 +82,14 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		break;
 
 		case 'edittopic':
-			edittopic();
-			break;
+		edittopic();
+		break;
 		case 'getquestionbyid':
-			getquestionbyid();
-			break;
+		getquestionbyid();
+		break;
+		case 'sendcartdata':
+		sendcartdata();
+		break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -617,7 +620,7 @@ function getchaptersbyidlocal($ch_id){
 /********************* Get Chapters By Id *********************/
 /***********************************************************/
 function getchapterbyid(){
-$ch_id = $_POST['ch_id'];
+	$ch_id = $_POST['ch_id'];
 	if($ch_id == ""){
 		$response = array("error" => TRUE);
 		$response['error_msg'] = "some error"; 
@@ -639,7 +642,7 @@ $ch_id = $_POST['ch_id'];
 		} 
 		else {
 			$response = array("error" => TRUE);
-		$response['error_msg'] = "some error"; 
+			$response['error_msg'] = "some error"; 
 		}
 		echo json_encode($response);
 	}
@@ -778,7 +781,7 @@ function gettopicbyid(){
 		} 
 		else {
 			$response = array("error" => TRUE);
-		$response['error_msg'] = "query failed ".$sql; 
+			$response['error_msg'] = "query failed ".$sql; 
 		}
 		echo json_encode($response);
 	}
@@ -790,32 +793,32 @@ function gettopicbyid(){
 /********************* Edit Topic By Id *********************/
 /***********************************************************/
 function edittopic(){
-$response = array("error" => FALSE);
+	$response = array("error" => FALSE);
 	if(!isset($_POST["topic_name"]) || empty($_POST["topic_name"]) || !isset($_POST["topic_id"]) || empty($_POST["topic_id"]) || !isset($_POST["ch_id"]) || empty($_POST["ch_id"])){
 		$response["error"] = TRUE;
-	$response["error_msg"] = "Insert data Missing!";
-}
-else{
-	include 'dbconnect.php';
-
-	
-	$ch_id = $_POST["ch_id"];
-	$topic_name = $_POST['topic_name'];
-	$topic_id = $_POST['topic_id'];
-	$response = array("error" => FALSE);
-	$sql = "UPDATE topics SET name ='$topic_name',
-			ch_id = $ch_id
-			WHERE id = $topic_id";
-
-	if (mysqli_query($conn, $sql)) {
-		$response["error"] = FALSE;
-		$response["msg"] = "topic updated successfully!";
-	} else {
-		$response["error"] = TRUE;
-		$response["error_msg"] = "topic could not be updated!";
+		$response["error_msg"] = "Insert data Missing!";
 	}
-}
-echo json_encode($response);
+	else{
+		include 'dbconnect.php';
+
+
+		$ch_id = $_POST["ch_id"];
+		$topic_name = $_POST['topic_name'];
+		$topic_id = $_POST['topic_id'];
+		$response = array("error" => FALSE);
+		$sql = "UPDATE topics SET name ='$topic_name',
+		ch_id = $ch_id
+		WHERE id = $topic_id";
+
+		if (mysqli_query($conn, $sql)) {
+			$response["error"] = FALSE;
+			$response["msg"] = "topic updated successfully!";
+		} else {
+			$response["error"] = TRUE;
+			$response["error_msg"] = "topic could not be updated!";
+		}
+	}
+	echo json_encode($response);
 
 
 }
@@ -837,28 +840,52 @@ function getquestionbyid(){
 	$i=0;
 
 	$data = mysqli_fetch_assoc($result);
-		$response["error"] = FALSE;
-		$response["data"]  = array();
-		$response["data"][] = array("id" => $data["id"], 
-									"topic" => $data["name"], 
-									"id" => $data["id"],
-									"class" => $data["class"],
-									"type" => $data["type"],
-									"subject" => $data["subject"],
-									"chapter" => $data["chapter"],
-									"level" => $data["level"],
-									"topic" => $data["topic"],
-									"marks" => $data["marks"],
-									"ques_txt" => $data["ques_txt"],
-									"ques_img" => $data["ques_img"],
-									"qr" => $data["qr"],
-									"answer" => $data["answer"],
-									"youtube" => $data["youtube"]);
+	$response["error"] = FALSE;
+	$response["data"]  = array();
+	$response["data"][] = array("id" => $data["id"], 
+		"topic" => $data["name"], 
+		"id" => $data["id"],
+		"class" => $data["class"],
+		"type" => $data["type"],
+		"subject" => $data["subject"],
+		"chapter" => $data["chapter"],
+		"level" => $data["level"],
+		"topic" => $data["topic"],
+		"marks" => $data["marks"],
+		"ques_txt" => $data["ques_txt"],
+		"ques_img" => $data["ques_img"],
+		"qr" => $data["qr"],
+		"answer" => $data["answer"],
+		"youtube" => $data["youtube"]);
 
 
 	echo json_encode($response);
 
 }	
 
+
+function sendcartdata(){
+	$response = array("error" => FALSE);
+	if(!isset($_POST['qpname']) || empty($_POST['qpname']) ||
+		!isset($_POST['qpclass']) || empty($_POST['qpclass']) ||
+		!isset($_POST['qpsubject']) || empty($_POST['qpsubject']) ||
+		!isset($_POST['qlist']) || empty($_POST['qlist']) ){
+		$response["error"] = TRUE;
+	$response["error_msg"] = "Insert data Missing!";
+
+}
+else{
+
+	$qpname = $_POST['qpame'];
+	$qpclass = $_POST['qpclass'];
+	$qpsubject = $_POST['qpsubject'];
+	$qlist = explode(",",$_POST['qlist']);
+	$response["error"] = FALSE;
+	$response['questions_added'] = count($qlist);
+
+}
+	echo json_encode($response);
+
+}
 ?>
 
