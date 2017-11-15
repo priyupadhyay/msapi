@@ -930,11 +930,12 @@ else{
 
 		$qpid = mysqli_insert_id($conn);
 		$response['sql2'][] = array();
-		$i=0;
+		$marks=0;
 	foreach ($qlist as $key => $value) {
 		$qdetails = getquestionbyidlocal($value);
 		$qid = $qdetails['data'][0]['id'];
 		$type = $qdetails['data'][0]['type'];
+		$marks += $qdetails['data'][0]['marks'];
 		$seca = 0;
 		$secb = 0;
 		$secc = 0;
@@ -951,10 +952,11 @@ else{
 		$sql2 = "INSERT INTO quest_paper (quesid,quesa,quesb,quesc,qpid)
 					VALUES($qid,$seca,$secb,$secc,$qpid)";
 					mysqli_query($conn, $sql2);
-					$response['sql2'][$i] = $sql2;
-					$i++;
+					
 }
+	$sql3 = "UPDATE quest_list SET marks=$marks WHERE qid = $qpid";
 $response['question_paper_id'] = $qpid;
+$response['marks'] = $marks;
 
 
 
