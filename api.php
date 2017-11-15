@@ -863,12 +863,52 @@ function getquestionbyid(){
 
 }	
 
+/***********************************************************/
+/********************** View Question By Id Local*********************/
+/***********************************************************/
+
+function getquestionbyidlocal($qid){
+
+	include 'dbconnect.php';
+
+	$id = $qid;
+
+	$response = array("error" => FALSE);
+	$sql = "SELECT * FROM questions WHERE `status`= 1 AND id = $id";
+	$result = mysqli_query($conn, $sql);
+	$i=0;
+
+	$data = mysqli_fetch_assoc($result);
+	$response["error"] = FALSE;
+	$response["data"]  = array();
+	$response["data"][] = array("id" => $data["id"], 
+		"topic" => $data["name"],
+		"class" => $data["class"],
+		"type" => $data["type"],
+		"subject" => $data["subject"],
+		"chapter" => $data["chapter"],
+		"level" => $data["level"],
+		"topic" => $data["topic"],
+		"marks" => $data["marks"],
+		"ques_txt" => $data["ques_txt"],
+		"ques_img" => $data["ques_img"],
+		"qr" => $data["qr"],
+		"answer" => $data["answer"],
+		"youtube" => $data["youtube"]);
+
+
+	return $response ;
+
+}	
+
 
 function sendcartdata(){
+	include 'dbconnect.php';
 	$response = array("error" => FALSE);
 	if(!isset($_POST['qpname']) || empty($_POST['qpname']) ||
 		!isset($_POST['qpclass']) || empty($_POST['qpclass']) ||
 		!isset($_POST['qpsubject']) || empty($_POST['qpsubject']) ||
+		!isset($_POST['qptime']) || empty($_POST['qptime']) ||
 		!isset($_POST['qlist']) || empty($_POST['qlist']) ){
 		$response["error"] = TRUE;
 	$response["error_msg"] = "Insert data Missing!";
@@ -879,9 +919,41 @@ else{
 	$qpname = $_POST['qpame'];
 	$qpclass = $_POST['qpclass'];
 	$qpsubject = $_POST['qpsubject'];
+	$qptime = $_POST['qptime'];
 	$qlist = explode(",",$_POST['qlist']);
 	$response["error"] = FALSE;
 	$response['questions_added'] = count($qlist);
+
+	$sql = "INSERT INTO quest_list (qname,qclass,qsubject,qtime,qdate,qmarks)
+		VALUES ('$qpname', '$qpclass', '$qpsubject','qptime',NOW(),0)";
+		mysqli_query($conn, $sql);
+
+		$qpid = mysqli_insert_id($conn);
+
+
+	foreach ($qlist as $key => $value) {
+		$qdetails = getquestionbyidlocal($value);
+		$qid = $qdetails['data'][0]['id'];
+		$type = $qdetails['data'][0]['type'];
+		$seca = 0;
+		$secb = 0;
+		$secc = 0;
+		if($type < 3){
+			$seca = 1;
+		}
+		elseif($type < 4){
+			$secb = 1;
+		}
+		else{
+			$secc = 1;
+		}
+
+		$sql2 = "INSERT INTO quest_paper (quesid,quesa,quesb,quesc,qpid)
+					VALUES(qid,$seca,$scb,$secc,$qpid)";
+					mysqli_query($conn, $sql2);
+}
+$response['question_paper_id'] = $qpid;
+
 
 }
 	echo json_encode($response);
