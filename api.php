@@ -90,6 +90,9 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		case 'sendcartdata':
 		sendcartdata();
 		break;
+		case 'viewquestionpaper':
+			viewquestionpaper();
+			break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -963,6 +966,34 @@ $response['marks'] = $marks;
 }
 	echo json_encode($response);
 
+}
+function viewquestionpaper(){
+	include 'dbconnect.php';
+
+
+	$response = array("error" => FALSE);
+	$sql = "SELECT * FROM quest_list";
+	$result = mysqli_query($conn, $sql);
+	$i=0;
+
+	while($data = mysqli_fetch_assoc($result)){
+		$response["error"] = FALSE;
+		$response["data"][] = array(
+		"id" => $data["qid"], 
+		"name" => $data["qname"],
+		"class" => $data["qclass"],
+		"time" => $data["qtime"],
+		"subject" => $data["qsubject"],
+		"marks" => $data["qmarks"],
+		"date" => $data["qdate"]);
+		
+
+		$i++;
+
+	}
+	$response["size"] = $i;
+
+	echo json_encode($response);
 }
 ?>
 
