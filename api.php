@@ -925,7 +925,7 @@ else{
 	$response['questions_added'] = count($qlist);
 
 	$sql = "INSERT INTO quest_list (qname,qclass,qsubject,qtime,qdate,qmarks)
-		VALUES ('$qpname', '$qpclass', '$qpsubject','$qptime',NOW(),0)";
+		VALUES ('$qpname', '$qpclass', '$qpsubject','$qptime',NOW(),0)"; //add marks
 		mysqli_query($conn, $sql);
 
 		$qpid = mysqli_insert_id($conn);
@@ -949,7 +949,7 @@ else{
 		}
 
 		$sql2 = "INSERT INTO quest_paper (quesid,quesa,quesb,quesc,qpid)
-					VALUES(qid,$seca,$scb,$secc,$qpid)";
+					VALUES($qid,$seca,$scb,$secc,$qpid)";
 					mysqli_query($conn, $sql2);
 }
 $response['question_paper_id'] = $qpid;
