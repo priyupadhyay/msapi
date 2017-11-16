@@ -93,6 +93,9 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		case 'viewquestionpaper':
 			viewquestionpaper();
 			break;
+		case 'getquestionpaperbyid':
+				getquestionpaperbyid();
+				break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -994,6 +997,13 @@ function viewquestionpaper(){
 	$response["size"] = $i;
 
 	echo json_encode($response);
+}
+
+function getquestionpaperbyid(){
+	$response = array("error" => FALSE);
+	$response['msg'] = "will be done soon.";
+
+
 }
 ?>
 
