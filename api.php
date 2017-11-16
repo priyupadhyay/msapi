@@ -1002,7 +1002,7 @@ function viewquestionpaper(){
 function getquestionpaperbyid(){
 	$qpid=$_POST['qpid'];
 	$response = array("error" => FALSE);
-	$response['msg'] = "will be done soon.";
+	$response['msg'] = "will be done soon. test1";
 
 	$sql = "SELECT quesid FROM quest_list WHERE qpid=$qpid";
 	$result = mysqli_query($conn, $sql);
