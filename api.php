@@ -1000,8 +1000,54 @@ function viewquestionpaper(){
 }
 
 function getquestionpaperbyid(){
+	$qpid=$_POST['qpid'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon.";
+
+	$sql = "SELECT quesid FROM quest_list WHERE qpid=$qpid";
+	$result = mysqli_query($conn, $sql);
+	$qids=array();
+	while($data = mysqli_fetch_assoc($result)){
+		qids[$data['quesid']]=$data['quesid'];
+	}
+
+	$sql = "SELECT quesid FROM quest_list WHERE qpid=$qpid";
+	$result = mysqli_query($conn, $sql);
+	while($data = mysqli_fetch_assoc($result)){
+		$response['data']['qname']=$data['qname'];
+		$response['data']['qclass']=$data['qclass'];
+		$response['data']['subject']=$data['subject'];
+		$response['data']['time']=$data['time'];
+		$response['data']['date']=$data['date'];
+		$response['data']['marks']=$data['marks'];
+
+	}
+
+
+	$i=0;
+	foreach($qids as $key=>$value){
+		$sql = "SELECT ques_txt,subject,marks,option1,option2,option3,option4,option5 FROM questions WHERE id=$key";
+		$result = mysqli_query($conn, $sql);
+		
+		while($quesdata = mysqli_fetch_assoc($result)){
+			$response['data']['questions'][]=array(
+		
+			"ques_txt" => $data["ques_txt"],
+			"subject" => $data["subject"],
+			"options" => array(
+				"option1"=>$data["option1"],
+				"option2"=>$data["option2"],
+				"option3"=>$data["option3"],
+				"option4"=>$data["option4"],
+				"option5"=>$data["option5"]),
+			"marks" => $data["marks"]
+			);
+		}
+	}
+	
+	
+
+
 	echo json_encode($response);
 
 
