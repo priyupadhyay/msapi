@@ -1002,6 +1002,7 @@ function viewquestionpaper(){
 function getquestionpaperbyid(){
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon.";
+	echo json_encode($response);
 
 
 }
