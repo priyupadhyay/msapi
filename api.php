@@ -1019,6 +1019,7 @@ function getquestionpaperbyid(){
 		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec );
 		
 	}
+	$response['sql'] = $sql;
 
 	echo json_encode($response);
 }
