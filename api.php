@@ -1003,6 +1003,7 @@ function getquestionpaperbyid(){
 	$qpid=$_POST['qp_id'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon. test1";
+	
 	$sql = "SELECT * FROM quest_paper WHERE qpid=$qpid";
 	$result = mysqli_query($conn, $sql);
 	while($data = mysqli_fetch_assoc($result)){
@@ -1015,9 +1016,7 @@ function getquestionpaperbyid(){
 		else{
 			$sec = 3;
 		}
-		$response['data'][] = array(
-			'question_id' => $data['quesid'],
-			'section' => $sec);
+		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec );
 		
 	}
 
