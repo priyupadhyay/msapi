@@ -1003,6 +1003,8 @@ function getquestionpaperbyid(){
 	$qpid=$_POST['qpid'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon. test1";
+	
+	echo json_encode($response);
 }
 ?>
 
