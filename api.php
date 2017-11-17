@@ -1024,8 +1024,7 @@ function getquestionpaperbyid(){
 		}
 		$quesFeed=getquestionbyidlocal($data['quesid']);
 
-		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec , 'ques_txt'=> $quesFeed['ques_txt'],
-		'option1'=>$quesFeed['option1'], 'option2'=>$quesFeed['option2'], 'option3'=>$quesFeed['option3'], 'option4'=>$quesFeed['option4'], 'marks'=>$quesFeed['marks'], 'ques_img'=>$quesFeed['ques_img']);
+		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec , 'ques_txt'=> $quesFeed['data'][0]['ques_txt'], 'option1'=>$quesFeed['data'][0]['option1'], 'option2'=>$quesFeed['data'][0]['option2'], 'option3'=>$quesFeed['data'][0]['option3'], 'option4'=>$quesFeed['data'][0]['option4'], 'marks'=>$quesFeed['data'][0]['marks'], 'ques_img'=>$quesFeed['data'][0]['ques_img']);
 		
 	}
 
