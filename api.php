@@ -1000,7 +1000,7 @@ function viewquestionpaper(){
 }
 
 function getquestionpaperbyid(){
-	$qpid=$_POST['qpid'];
+	$qpid=$_POST['qp_id'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon. test1";
 	$sql = "SELECT * FROM quest_paper WHERE qpid=$qpid";
