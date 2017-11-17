@@ -1003,7 +1003,24 @@ function getquestionpaperbyid(){
 	$qpid=$_POST['qpid'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon. test1";
-	
+	$sql = "SELECT * FROM quest_paper WHERE qpid=$qpid";
+	$result = mysqli_query($conn, $sql);
+	while($data = mysqli_fetch_assoc($result)){
+		if($data['quesa'] == 1){
+			$sec = 1;
+		}
+		elseif($data['quesb'] == 1){
+			$sec = 2;
+		}
+		else{
+			$sec = 3;
+		}
+		$response['data'][] = array(
+			'question_id' => $data['quesid'],
+			'section' => $sec);
+		
+	}
+
 	echo json_encode($response);
 }
 ?>
