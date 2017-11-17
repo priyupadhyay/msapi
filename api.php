@@ -900,7 +900,12 @@ function getquestionbyidlocal($qid){
 		"ques_img" => $data["ques_img"],
 		"qr" => $data["qr"],
 		"answer" => $data["answer"],
-		"youtube" => $data["youtube"]);
+		"youtube" => $data["youtube"],
+		"option1"=>$data["option1"],
+		"option2"=>$data["option2"],
+		"option3"=>$data["option3"],
+		"option4"=>$data["option4"]
+	);
 
 
 	return $response ;
@@ -1017,9 +1022,13 @@ function getquestionpaperbyid(){
 		else{
 			$sec = 3;
 		}
-		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec );
+		$quesFeed=getquestionbyidlocal($data['quesid']);
+
+		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec , 'ques_txt'=> $quesFeed['ques_txt'],
+		'option1'=>$quesFeed['option1'], 'option2'=>$quesFeed['option2'], 'option3'=>$quesFeed['option3'], 'option4'=>$quesFeed['option4'], 'marks'=>$quesFeed['marks'], 'ques_img'=>$quesFeed['ques_img']);
 		
 	}
+
 	//$response['sql'] = $sql;
 
 	echo json_encode($response);
