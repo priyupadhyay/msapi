@@ -1000,6 +1000,7 @@ function viewquestionpaper(){
 }
 
 function getquestionpaperbyid(){
+	include 'dbconnect.php';
 	$qpid=$_POST['qp_id'];
 	$response = array("error" => FALSE);
 	$response['msg'] = "will be done soon. test1";
@@ -1019,7 +1020,7 @@ function getquestionpaperbyid(){
 		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec );
 		
 	}
-	$response['sql'] = $sql;
+	//$response['sql'] = $sql;
 
 	echo json_encode($response);
 }
