@@ -982,7 +982,7 @@ function viewquestionpaper(){
 
 
 	$response = array("error" => FALSE);
-	$sql = "SELECT * FROM quest_list order by qdate desc";
+	$sql = "SELECT * FROM quest_list";
 	$result = mysqli_query($conn, $sql);
 	$i=0;
 
@@ -1025,8 +1025,21 @@ function getquestionpaperbyid(){
 			$sec = 3;
 		}
 		$quesFeed=getquestionbyidlocal($data['quesid']);
+		$options = array(
+			"option1" => $quesFeed['data'][0]['option1'],
+			"option2" => $quesFeed['data'][0]['option2'],
+			"option3" => $quesFeed['data'][0]['option3'],
+			"option4" => $quesFeed['data'][0]['option4']);
 
-		$response['data'][] = array('question_id' => $data['quesid'], 'section' => $sec , 'ques_txt'=> $quesFeed['data'][0]['ques_txt'], 'option1'=>$quesFeed['data'][0]['option1'], 'option2'=>$quesFeed['data'][0]['option2'], 'option3'=>$quesFeed['data'][0]['option3'], 'option4'=>$quesFeed['data'][0]['option4'], 'marks'=>$quesFeed['data'][0]['marks'], 'ques_img'=>$quesFeed['data'][0]['ques_img']);
+		$response['data'][] = array(
+			'question_id' => $data['quesid'], 
+			'section' => $sec , 
+			'ques_txt'=> $quesFeed['data'][0]['ques_txt'], 
+			'options'=> $options, 
+			'marks'=>$quesFeed['data'][0]['marks'], 
+			'ques_img'=>$quesFeed['data'][0]['ques_img'],
+			'answer' => $quesFeed['data'][0]['answer'] 
+		);
 		
 	}
 
