@@ -982,7 +982,7 @@ function viewquestionpaper(){
 
 
 	$response = array("error" => FALSE);
-	$sql = "SELECT * FROM quest_list";
+	$sql = "SELECT * FROM quest_list order by qdate desc";
 	$result = mysqli_query($conn, $sql);
 	$i=0;
 
