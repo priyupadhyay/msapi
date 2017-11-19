@@ -575,7 +575,7 @@ function addquestions() {
 	$link = $_POST['link'];
 	$file = $_POST['file'];
 
-
+	if(is_numeric ($chapter))
 	$chapter = getchaptersbyidlocal($chapter);
 
 
