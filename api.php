@@ -10,7 +10,7 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 
 		case 'viewquestion':
 
-		viewquestions();
+		viewquestion();
 		break;
 
 		
