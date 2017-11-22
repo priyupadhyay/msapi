@@ -561,7 +561,7 @@ function addquestions() {
 	$answer = $_POST['answer'];
 	$group = $_POST['group'];
 	$mcq1 = $_POST['mcq1'];
-	$mcq2 = $_POST['mcq1'];
+	$mcq2 = $_POST['mcq2'];
 	$mcq3 = $_POST['mcq3'];
 	$mcq4 = $_POST['mcq4'];
 	$class = $_POST['class'];
