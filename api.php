@@ -1054,7 +1054,7 @@ function getquestionpaperbyid(){
 			'marks'=>$quesFeed['data'][0]['marks'], 
 			'ques_img'=>$quesFeed['data'][0]['ques_img'],
 			'answer' => $quesFeed['data'][0]['answer'],
-			"qr" => "plati017".sprintf('%07d', $quesFeed['id']), 
+			"qr" => "plati017".sprintf('%07d', $data['quesid']), 
 		);
 		
 	}
