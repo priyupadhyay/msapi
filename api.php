@@ -268,15 +268,14 @@ function countdata(){
 	(SELECT COUNT(*) FROM chapters) as chapter_count,
 	(SELECT COUNT(*) FROM subjects) as subject_count,
 	(SELECT COUNT(*) FROM topics) as topic_count,
-	(SELECT COUNT(*) FROM quest_paper) as questionpaper_count,
-	(SELECT COUNT(*) FROM chapters) as chapter_count,
+	(SELECT COUNT(*) FROM quest_list) as questionpaper_count,
 	(SELECT COUNT(*) FROM user) as user_count";
 	$result = mysqli_query($conn, $sql);
 	$i=0;
 	if($data = mysqli_fetch_assoc($result)){
 		$response["error"] = FALSE;
 		$response["data"]["questions_count"] = $data["question_count"];
-		$response["data"]["chapters_count"] = $data["question_count"];
+		$response["data"]["chapters_count"] = $data["chapter_count"];
 		$response["data"]["subjects_count"] = $data["subject_count"];
 		$response["data"]["topics_count"] = $data["topic_count"];
 		$response["data"]["questionpaper_count"] = $data["questionpaper_count"];
