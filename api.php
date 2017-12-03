@@ -914,7 +914,7 @@ function getquestionbyidlocal($qid){
 		"marks" => $data["marks"],
 		"ques_txt" => $data["ques_txt"],
 		"ques_img" => $data["ques_img"],
-		"qr" => $data["qr"],
+		"qr" => "plati017".sprintf('%07d', $data['id']),
 		"answer" => $data["answer"],
 		"youtube" => $data["youtube"],
 		"option1"=>$data["option1"],
@@ -1009,6 +1009,7 @@ function viewquestionpaper(){
 		"time" => $data["qtime"],
 		"subject" => $data["qsubject"],
 		"marks" => $data["qmarks"],
+
 		"date" => $data["qdate"]);
 		
 
@@ -1052,7 +1053,8 @@ function getquestionpaperbyid(){
 			'options'=> $options, 
 			'marks'=>$quesFeed['data'][0]['marks'], 
 			'ques_img'=>$quesFeed['data'][0]['ques_img'],
-			'answer' => $quesFeed['data'][0]['answer'] 
+			'answer' => $quesFeed['data'][0]['answer'],
+			"qr" => "plati017".sprintf('%07d', $quesFeed['quesid']), 
 		);
 		
 	}
