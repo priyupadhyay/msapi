@@ -147,7 +147,7 @@ function viewquestion(){
 		$response["data"][$i]["marks"] = $data["marks"];
 		$response["data"][$i]["ques_txt"] = $data["ques_txt"];
 		$response["data"][$i]["ques_img"] = $data["ques_img"];
-		//$response["data"][$i]["qr"] = "plati017".sprintf('%07d', $data['id']);
+		$response["data"][$i]["qr"] = "plati017".sprintf('%07d', $data['id']);
 		$response["data"][$i]["answer"] = $data["answer"];
 		$response["data"][$i]["youtube"] = $data["youtube"];
 		$i++;
