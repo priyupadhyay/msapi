@@ -147,7 +147,7 @@ function viewquestion(){
 		$response["data"][$i]["marks"] = $data["marks"];
 		$response["data"][$i]["ques_txt"] = $data["ques_txt"];
 		$response["data"][$i]["ques_img"] = $data["ques_img"];
-		//$response["data"][$i]["qr"] = $data["qr"];
+		$response["data"][$i]["qr"] = "plati017".sprintf('%07d', $data['id']);
 		$response["data"][$i]["answer"] = $data["answer"];
 		$response["data"][$i]["youtube"] = $data["youtube"];
 		$i++;
@@ -584,13 +584,21 @@ function addquestions() {
 	if(is_numeric ($chapter))
 	$chapter = getchaptersbyidlocal($chapter);
 
-
+	 
 
 	$response = array("error" => FALSE);
 	$sql = "INSERT INTO `questions` (`class`, `type`, `subject`, `chapter`, `level`, `topic`, `marks`, `ques_txt`, `ques_img`, `option1`, `option2`, `option3`, `option4`, `option5`, `answer`, `date`, `by`, `youtube`)
 	VALUES ('$class', '$type', '$subject', '$chapter', '$level', '$topic', $marks, '$question', '$file', '$mcq1', '$mcq2', '$mcq3', '$mcq4', 'null', '$answer', NOW(), 'admin', '$link');";
 
 	if (mysqli_query($conn, $sql)) {
+
+		$idmax = mysqli_insert_id($conn);
+
+		$qr = "plati017".sprintf('%07d', $idmax); 
+		$sql2 = "UPDATE `questions` SET `qr` = '$qr' WHERE `id` = $idmax";
+		mysqli_query($conn, $sql2);
+
+
 		$response["error"] = FALSE;
 		$response["msg"] = "Questions added successfully!";
 	} else {
@@ -868,7 +876,7 @@ function getquestionbyid(){
 		"marks" => $data["marks"],
 		"ques_txt" => $data["ques_txt"],
 		"ques_img" => $data["ques_img"],
-		"qr" => $data["qr"],
+		"qr" => "plati017".sprintf('%07d', $data['id']),
 		"answer" => $data["answer"],
 		"youtube" => $data["youtube"]);
 
