@@ -13,9 +13,6 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		viewquestion();
 		break;
 
-		
-
-		
 		case 'viewsubject':
 
 		viewsubject();
@@ -811,7 +808,7 @@ function gettopicbyid(){
 }
 
 /***********************************************************/
-/********************* Edit Topic By Id *********************/
+/********************* Edit Topic By Id ********************/
 /***********************************************************/
 function edittopic(){
 	$response = array("error" => FALSE);
@@ -864,8 +861,7 @@ function getquestionbyid(){
 	$response["error"] = FALSE;
 	$response["data"]  = array();
 	$response["data"][] = array("id" => $data["id"], 
-		"topic" => $data["name"], 
-		"id" => $data["id"],
+		"topic" => $data["name"],
 		"class" => $data["class"],
 		"type" => $data["type"],
 		"subject" => $data["subject"],
@@ -877,7 +873,12 @@ function getquestionbyid(){
 		"ques_img" => $data["ques_img"],
 		"qr" => "plati017".sprintf('%07d', $data['id']),
 		"answer" => $data["answer"],
-		"youtube" => $data["youtube"]);
+		"youtube" => $data["youtube"],
+		"option1"=>$data["option1"],
+		"option2"=>$data["option2"],
+		"option3"=>$data["option3"],
+		"option4"=>$data["option4"]
+	);
 
 
 	echo json_encode($response);
