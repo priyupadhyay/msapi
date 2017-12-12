@@ -934,7 +934,7 @@ function getchapteridbyname($name)
 {
 	include 'dbconnect.php';
 	
-	$sql = "SELECT * FROM chapters where chap = '$name'";
+	$sql = "SELECT * FROM chapters where chap = '".$name."'";
 	$result = mysqli_query($conn, $sql);
 	$data = mysqli_fetch_assoc($result);
 	return $data['id'];
@@ -945,7 +945,7 @@ function gettopicidbyname($name)
 {
 	include 'dbconnect.php';
 	
-	$sql = "SELECT * FROM topics where name = '$name'";
+	$sql = "SELECT * FROM topics where name = '".$name."'";
 	$result = mysqli_query($conn, $sql);
 	$data = mysqli_fetch_assoc($result);
 	return $data['id'];
