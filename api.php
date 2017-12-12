@@ -866,8 +866,10 @@ function getquestionbyid(){
 		"type" => $data["type"],
 		"subject" => $data["subject"],
 		"chapter" => $data["chapter"],
+		"chapter_id" => getchapteridbyname($data["chapter"]),
 		"level" => $data["level"],
 		"topic" => $data["topic"],
+		"topic_id" => gettopicidbyname($data["topic"]),
 		"marks" => $data["marks"],
 		"ques_txt" => $data["ques_txt"],
 		"ques_img" => $data["ques_img"],
@@ -928,6 +930,27 @@ function getquestionbyidlocal($qid){
 
 }	
 
+function getchapteridbyname($name)
+{
+	include 'dbconnect.php';
+	
+	$sql = "SELECT * FROM chapters where chap = '$name'";
+	$result = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_assoc($result);
+	return $data['id'];
+
+}
+
+function gettopicidbyname($name)
+{
+	include 'dbconnect.php';
+	
+	$sql = "SELECT * FROM topics where name = '$name'";
+	$result = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_assoc($result);
+	return $data['id'];
+
+}
 
 function sendcartdata(){
 	include 'dbconnect.php';
