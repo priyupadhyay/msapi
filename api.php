@@ -1048,7 +1048,7 @@ function getquestionpaperbyid(){
 	include 'dbconnect.php';
 	$qpid=$_POST['qp_id'];
 	$response = array("error" => FALSE);
-	$response['msg'] = "will be done soon. test1";
+	$response['msg'] = "an error occured";
 	
 	$sql = "SELECT * FROM quest_paper WHERE qpid=$qpid";
 	$result = mysqli_query($conn, $sql);
@@ -1056,7 +1056,7 @@ function getquestionpaperbyid(){
 		if($data['quesa'] == 1){
 			$sec = 1;
 		}
-		elseif($data['quesb'] == 1){
+		elseif($data['quesb'] == 2){
 			$sec = 2;
 		}
 		else{
