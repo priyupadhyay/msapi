@@ -1056,7 +1056,7 @@ function getquestionpaperbyid(){
 		if($data['quesa'] == 1){
 			$sec = 1;
 		}
-		elseif($data['quesb'] == 2){
+		elseif($data['quesb'] == 1){
 			$sec = 2;
 		}
 		else{
