@@ -261,7 +261,7 @@ function countdata(){
 
 	$response = array("error" => FALSE);
 	$sql = "SELECT
-	(SELECT COUNT(*) FROM questions)  as question_count, 
+	(SELECT COUNT(*) FROM questions WHERE `status`= 1)  as question_count, 
 	(SELECT COUNT(*) FROM chapters) as chapter_count,
 	(SELECT COUNT(*) FROM subjects) as subject_count,
 	(SELECT COUNT(*) FROM topics) as topic_count,
