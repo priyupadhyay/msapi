@@ -98,6 +98,9 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		case 'getquestionpaperbyid':
 				getquestionpaperbyid();
 				break;
+		case 'editquestion':
+				edituestion();
+				break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -1087,6 +1090,81 @@ function getquestionpaperbyid(){
 	echo json_encode($response);
 }
 
-//some
+
+/***********************************************************/
+/********************* Add Questions *********************/
+/***********************************************************/
+
+function editquestion() {
+	$response = array("error" => FALSE);
+// if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
+// $response["error"] = TRUE;
+//     $response["error_msg"] = "Insert data Missing!";
+// }
+// else{
+	include 'dbconnect.php';
+
+	$question = $_POST['question'];
+	$answer = $_POST['answer'];
+	$group = $_POST['group'];
+	$mcq1 = $_POST['mcq1'];
+	$mcq2 = $_POST['mcq2'];
+	$mcq3 = $_POST['mcq3'];
+	$mcq4 = $_POST['mcq4'];
+	$class = $_POST['class'];
+	$subject = $_POST['subject'];
+	$type = $_POST['type'];
+	$tag = $_POST['tag'];
+	$chapter = $_POST['chapter'];
+	$topic  = $_POST['topic'];
+	$level = $_POST['level'];
+	$marks = $_POST['marks'];
+	$link = $_POST['link'];
+	$file = $_POST['file'];
+
+	if(is_numeric ($chapter))
+	$chapter = getchaptersbyidlocal($chapter);
+
+	 
+
+	$response = array("error" => FALSE);
+	$sql = "UPDATE `questions` 
+			SET `class` = '$class',
+			    `type` = '$type' , 
+				`subject`= '$subject', 
+				`chapter`= '$chapter', 
+				`level`= '$level', 
+				`topic`= '$topic', 
+				`marks`= $marks, 
+				`ques_txt`= '$question', 
+				`ques_img`= '$file', 
+				`option1`= '$mcq1', 
+				`option2`= '$mcq2', 
+				`option3`= '$mcq3', 
+				`option4`= '$mcq4', 
+				`option5`= 'null', 
+				`answer`= '$answer', 
+				`date`= NOW(), 
+				`by`= 'admin', 
+				`youtube` = '$link' 
+				WHERE `id` = $id";
+
+	if (mysqli_query($conn, $sql)) {
+
+		$response["error"] = FALSE;
+		$response["msg"] = "Questions updated successfully!";
+	} else {
+		$response["error"] = TRUE;
+		$response["error_msg"] = "Question could not be updated!";
+	}
+//}
+	echo json_encode($response);
+
+}
+
+
+
+
+
 ?>
 
