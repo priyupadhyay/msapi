@@ -1100,6 +1100,7 @@ function editquestion() {
 
 	include 'dbconnect.php';
 
+	$id = $_POST['id'];
 	$question = $_POST['question'];
 	$answer = $_POST['answer'];
 	$mcq1 = $_POST['mcq1'];
