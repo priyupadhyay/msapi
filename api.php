@@ -99,7 +99,7 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 				getquestionpaperbyid();
 				break;
 		case 'editquestion':
-				edituestion();
+				editquestion();
 				break;
 
 		default:
@@ -1092,21 +1092,16 @@ function getquestionpaperbyid(){
 
 
 /***********************************************************/
-/********************* Add Questions *********************/
+/********************* Edit Questions *********************/
 /***********************************************************/
 
 function editquestion() {
 	$response = array("error" => FALSE);
-// if(!isset($_POST["ch_id"]) || empty($_POST["ch_id"]) || !isset($_POST["topic"]) || empty($_POST["topic"]) ){
-// $response["error"] = TRUE;
-//     $response["error_msg"] = "Insert data Missing!";
-// }
-// else{
+
 	include 'dbconnect.php';
 
 	$question = $_POST['question'];
 	$answer = $_POST['answer'];
-	$group = $_POST['group'];
 	$mcq1 = $_POST['mcq1'];
 	$mcq2 = $_POST['mcq2'];
 	$mcq3 = $_POST['mcq3'];
@@ -1157,7 +1152,7 @@ function editquestion() {
 		$response["error"] = TRUE;
 		$response["error_msg"] = "Question could not be updated!";
 	}
-//}
+
 	echo json_encode($response);
 
 }
