@@ -143,6 +143,7 @@ function viewquestion(){
 		$response["data"][$i]["subject"] = $data["subject"];
 		$response["data"][$i]["chapter"] = $data["chapter"];
 		$response["data"][$i]["level"] = $data["level"];
+		$response["data"][$i]["tag"] = $data["tag"];
 		$response["data"][$i]["topic"] = $data["topic"];
 		$response["data"][$i]["marks"] = $data["marks"];
 		$response["data"][$i]["ques_txt"] = $data["ques_txt"];
@@ -420,7 +421,6 @@ function getchapters(){
 
 
 				$response["data"][] = array("id" => $data["id"], "chapter" => $data["chap"]);
-//$response["data"] = array("chapter" => $data["chap"]);
 
 
 				$i++;
