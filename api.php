@@ -869,6 +869,7 @@ function getquestionbyid(){
 		"type" => $data["type"],
 		"subject" => $data["subject"],
 		"chapter" => $data["chapter"],
+		"tag" => $data["tag"],
 		"chapter_id" => getchapteridbyname($data["chapter"]),
 		"level" => $data["level"],
 		"topic" => $data["topic"],
