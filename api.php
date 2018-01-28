@@ -132,7 +132,7 @@ function viewquestion(){
 
 
 	$response = array("error" => FALSE);
-	$sql = "SELECT * FROM questions WHERE `status`= 1";
+	$sql = "SELECT * FROM questions WHERE `status`= 1 LIMIT 1000";
 	$result = mysqli_query($conn, $sql);
 	$i=0;
 
