@@ -315,7 +315,7 @@ function countdata(){
 	(SELECT COUNT(*) FROM subjects) as subject_count,
 	(SELECT COUNT(*) FROM topics) as topic_count,
 	(SELECT COUNT(*) FROM quest_list) as questionpaper_count,
-	(SELECT COUNT(*) FROM user) as user_count";
+	(SELECT COUNT(*) FROM users) as user_count";
 	$result = mysqli_query($conn, $sql);
 	$i=0;
 	if($data = mysqli_fetch_assoc($result)){
