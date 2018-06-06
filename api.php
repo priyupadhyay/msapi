@@ -1069,9 +1069,10 @@ $response['marks'] = $marks;
 
 //Function to save question paper as json file
 function saveQuestionPaperAsJson($qpid){
-
+	include 'dbconnect.php';
+	
 	$questionPaper = array();
-	$sql = "SELECT * FROM quest_list where qid =$qpid ";
+	$sql = "SELECT * FROM quest_list where qid =".$qpid;
 	$result = mysqli_query($conn, $sql);
 	$data = mysqli_fetch_assoc($result);
 		$questionPaper["questionPaperDetails"] = array(
