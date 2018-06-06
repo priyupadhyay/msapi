@@ -106,6 +106,9 @@ if(isset($_POST["func"]) && !empty($_POST["func"])){
 		case 'editquestion':
 				editquestion();
 				break;
+		case 'jsonqp':
+				saveQuestionPaperAsJson($_POST["qpid"]);
+				break;
 
 		default:
 		$response = array("error" => TRUE);
@@ -1057,12 +1060,67 @@ else{
 $response['question_paper_id'] = $qpid;
 $response['marks'] = $marks;
 
-
+//saveQuestionPaperAsJson($qpid);
 
 }
 	echo json_encode($response);
 
 }
+
+//Function to save question paper as json file
+function saveQuestionPaperAsJson($qpid){
+
+	$questionPaper = array();
+	$sql = "SELECT * FROM quest_list where qid =$qpid ";
+	$result = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_assoc($result);
+		$questionPaper["questionPaperDetails"] = array(
+		"id" => $data["qid"], 
+		"title" => $data["qname"],
+		"class" => $data["qclass"],
+		"time" => $data["qtime"],
+		"subject" => $data["qsubject"],
+		"marks" => $data["qmarks"],
+		"date" => $data["qdate"]);
+		
+
+	$query1 = "SELECT `ques_txt`, `option1`, `option2`, `option3`, `option4`, `option5`, `answer`, `marks`, `qr` from questions where id IN (SELECT quesid from quest_paper where qpid=".$qpid.")";
+	$query2 = "SELECT `quesa`,`quesb`,`quesc` FROM quest_paper WHERE qpid=".$qpid;
+	$result1 = mysqli_query($conn, $query1);
+	$result2 = mysqli_query($conn, $query2);
+	while($data1 = mysqli_fetch_assoc($result1) && $data2 = mysqli_fetch_assoc($result2)){
+		if($data2['quesa'] == 1){
+				$sec = 1;
+			}
+			elseif($data2['quesb'] == 1){
+				$sec = 2;
+			}
+			else{
+				$sec = 3;
+			} 
+			$options = array(
+				"option1" => $data1['option1'],
+				"option2" => $data1['option2'],
+				"option3" => $data1['option3'],
+				"option4" => $data1['option4'],
+				"option5" => $data1['option5']);
+
+			$questionPaper['questions'][] = array(
+				'question_id' => $data1['quesid'], 
+				'section' => $sec , 
+				'ques_txt'=> $data1['ques_txt'], 
+				'options'=> $options, 
+				'marks'=> $data1['marks'], 
+				'ques_img'=> $data1['ques_img'],
+				'answer' => $data1['answer'],
+				"qr" => "plati017".sprintf('%07d', $data1['quesid']), 
+			);
+	}
+
+	echo json_encode($questionPaper);
+
+}
+
 function viewquestionpaper(){
 	include 'dbconnect.php';
 
@@ -1081,7 +1139,6 @@ function viewquestionpaper(){
 		"time" => $data["qtime"],
 		"subject" => $data["qsubject"],
 		"marks" => $data["qmarks"],
-
 		"date" => $data["qdate"]);
 		
 
