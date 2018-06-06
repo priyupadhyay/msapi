@@ -1070,7 +1070,7 @@ $response['marks'] = $marks;
 //Function to save question paper as json file
 function saveQuestionPaperAsJson($qpid){
 	include 'dbconnect.php';
-	
+
 	$questionPaper = array();
 	$sql = "SELECT * FROM quest_list where qid =".$qpid;
 	$result = mysqli_query($conn, $sql);
@@ -1089,7 +1089,8 @@ function saveQuestionPaperAsJson($qpid){
 	$query2 = "SELECT `quesa`,`quesb`,`quesc` FROM quest_paper WHERE qpid=".$qpid;
 	$result1 = mysqli_query($conn, $query1);
 	$result2 = mysqli_query($conn, $query2);
-	while($data1 = mysqli_fetch_assoc($result1) && $data2 = mysqli_fetch_assoc($result2)){
+	while($data1 = mysqli_fetch_assoc($result1)){
+		$data2 = mysqli_fetch_assoc($result2);
 		if($data2['quesa'] == 1){
 				$sec = 1;
 			}
