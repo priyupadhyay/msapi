@@ -1060,7 +1060,7 @@ else{
 $response['question_paper_id'] = $qpid;
 $response['marks'] = $marks;
 
-saveQuestionPaperAsJson($qpid);
+//saveQuestionPaperAsJson($qpid);
 
 }
 	echo json_encode($response);
@@ -1119,27 +1119,9 @@ function saveQuestionPaperAsJson($qpid){
 			);
 	}
 
-	//echo json_encode($questionPaper);
+	echo json_encode($questionPaper);
 
-	//Convert updated array to JSON
-	   $jsondata = json_encode($questionPaper, JSON_PRETTY_PRINT);
-
-	  $myFile = "jsonqp/".$qpid.".json"; 
-	   $handle = fopen($filename,'w+');
-
-		//write the data into the file
-		fwrite($handle,$jsondata);
-
-		//close the file
-		fclose($handle);
-	   
-	//    //write json data into data.json file
-	//    $myFile = "jsonqp/".$qpid.".json";
-	//    if(file_put_contents($myFile, $jsondata)) {
-	//         echo "{'msg': 'Data successfully saved'}";
-	//     }
-	//    else 
-	//         echo "{'msg': 'Error'}";
+	
 
 }
 
