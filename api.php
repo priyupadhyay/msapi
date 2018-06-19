@@ -1064,8 +1064,8 @@ else{
 										`subject`='$qpsubject',
 										`class`=$qpclass,
 										`by`='MySchool',
-										`file_url`=$file_url,
-										`file_url_answer`=$file_url,
+										`file_url`='$file_url',
+										`file_url_answer`='$file_url',
 										`status`= 1";
 	mysqli_query($conn, $sql4);
 	$response['question_paper_id'] = $qpid;
