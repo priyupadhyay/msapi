@@ -1057,8 +1057,19 @@ else{
 }
 	$sql3 = "UPDATE quest_list SET qmarks=$marks WHERE qid = $qpid";
 	mysqli_query($conn, $sql3);
-$response['question_paper_id'] = $qpid;
-$response['marks'] = $marks;
+	$file_url = "http://msmypaper.com/jsonqp/".$qpid.".json";
+	$sql4 = "INSERT INTO test_details SET `name`='$qpname', 
+										`marks`=$marks,
+										`duration`=$qptime,
+										`subject`='$qpsubject',
+										`class`=$qpclass,
+										`by`='MySchool',
+										`file_url`=$file_url,
+										`file_url_answer`=$file_url,
+										`status`= 1";
+	mysqli_query($conn, $sql4);
+	$response['question_paper_id'] = $qpid;
+	$response['marks'] = $marks;
 
 //saveQuestionPaperAsJson($qpid);
 
