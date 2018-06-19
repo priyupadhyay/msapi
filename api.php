@@ -1057,7 +1057,7 @@ else{
 }
 	$sql3 = "UPDATE quest_list SET qmarks=$marks WHERE qid = $qpid";
 	mysqli_query($conn, $sql3);
-	$file_url = "http://msmypaper.com/jsonqp/".$qpid.".json";
+	$file_url = "http://msmypaper.com/mypaper/jsonqp/".$qpid.".json";
 	$sql4 = "INSERT INTO test_details SET `name`='$qpname', 
 										`marks`=$marks,
 										`duration`=$qptime,
